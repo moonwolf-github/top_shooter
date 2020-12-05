@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-const WALK_SPEED = 10000
+const WALK_SPEED = 100
 #const WALK_SPEED = 10000
 const ROTATE_SPEED = 5
 var shooting = false
@@ -41,7 +41,7 @@ func _physics_process(delta):
         angle = ROTATE_SPEED
     
     rotate(angle * delta)
-    move_and_slide(velocity * WALK_SPEED * delta)#, Vector2(0, 0), Vector2(0, 0))
+    move_and_slide(velocity * WALK_SPEED)#, Vector2(0, 0), Vector2(0, 0))
         
     #if velocity.length() > 0:
     #    $Player/AnimationTree.set("parameters/Idle/blend_position", velocity.normalized().x)
