@@ -1,11 +1,12 @@
 extends EnemyAI
 class_name RandomMoveAI
 
-const TURN_CHANCE = 0.3
-const MOVE_CHANCE = 0.7
+const TURN_CHANCE = 0.2
+const MOVE_CHANCE = 0.8
 var cur_action = 0
 var new_angle = 0.0
 var current_angle = 0.0
+var rotate_direction = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -13,13 +14,19 @@ func _ready():
 
 func process_ai(delta, rotation):
     if cur_action == 0:
+        randomize()
         var new_action = randf()
         #print(new_action)
         if new_action <= TURN_CHANCE:
             cur_action = 1
             new_angle = randf() * 360
-            current_angle = rotation
-            print("%f, %f" % [current_angle, new_angle])
+            current_angle = fposmod(rotation, 360)
+            #print("%f, %f" % [current_angle, new_angle])
+            print("%f (%f), %f = %f" % [current_angle, fposmod(current_angle, 360), new_angle, sin(deg2rad(fposmod(new_angle - current_angle, 360)))])
+            if sin(deg2rad(fposmod(new_angle - current_angle, 360))) < 0:
+                rotate_direction = -1
+            else:
+                rotate_direction = 1
         elif new_action <= MOVE_CHANCE:
             cur_action = 2
 
