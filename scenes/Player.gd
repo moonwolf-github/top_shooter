@@ -4,6 +4,7 @@ const WALK_SPEED = 100
 #const WALK_SPEED = 10000
 const ROTATE_SPEED = 5
 var shooting = false
+onready var screen_size = get_viewport_rect().size
 
 export (PackedScene) var Bullet
 
@@ -17,8 +18,8 @@ func _physics_process(delta):
     if not shooting and Input.is_action_pressed("fire"):
         shooting = true
         var b = Bullet.instance()
-        owner.add_child(b)
         b.transform = $Muzzle.global_transform
+        owner.add_child(b)
         $FireTimer.stop()
         $FireTimer.start(1.0 / b.Rate)
  
@@ -42,6 +43,9 @@ func _physics_process(delta):
     
     rotate(angle * delta)
     move_and_slide(velocity * WALK_SPEED)#, Vector2(0, 0), Vector2(0, 0))
+    
+    position.x = wrapf(position.x, -screen_size.x / 2, screen_size.x / 2)
+    position.y = wrapf(position.y, -screen_size.y / 2, screen_size.y / 2)
         
     #if velocity.length() > 0:
     #    $Player/AnimationTree.set("parameters/Idle/blend_position", velocity.normalized().x)
