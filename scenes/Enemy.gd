@@ -23,6 +23,14 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
     ai.process_ai(delta, (fmod(rotation_degrees, 360)))
+    if not ai.shooting and ai.make_shot:
+        ai.shooting = true
+        ai.make_shot = false
+        var b = Bullet.instance()
+        b.transform = $Muzzle.global_transform
+        get_parent().add_child(b)
+        $FireTimer.stop()
+        $FireTimer.start(1.0 / b.Rate)
     #print("%f, %f" % [ai.new_angle, rotation_degrees])
     if ai.cur_action == 2:
         move_and_collide(transform.x * WALK_SPEED * delta)
@@ -51,4 +59,4 @@ func _physics_process(delta):
     #    $FireTimer.start(1.0 / b.Rate)
 
 func _on_FireTimer_timeout():
-    shooting = false
+    ai.finish_shooting()
