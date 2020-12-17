@@ -19,6 +19,7 @@ func _physics_process(delta):
         shooting = true
         var b = Bullet.instance()
         b.transform = $Muzzle.global_transform
+        b.set_collision_mask_bit(0, false)
         owner.add_child(b)
         $FireTimer.stop()
         $FireTimer.start(1.0 / b.Rate)
@@ -62,3 +63,6 @@ func _physics_process(delta):
 
 func _on_FireTimer_timeout():
     shooting = false
+
+func hit():
+    get_parent().end_game(false)

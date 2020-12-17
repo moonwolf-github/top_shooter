@@ -4,12 +4,9 @@ class_name RandomMoveAI
 const TURN_CHANCE = 0.2
 const MOVE_CHANCE = 0.8
 const SHOOT_CHANCE = 0.07
-var cur_action = 0
 var new_angle = 0.0
 var current_angle = 0.0
 var rotate_direction = 1
-var shooting = false
-var make_shot = false
 
 func _init():
     randomize()

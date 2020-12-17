@@ -5,6 +5,10 @@ func _ready():
     var Enemy = load("scenes/Enemy.tscn")
     var enemy = Enemy.instance()
     add_child(enemy)
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#    pass
+
+
+func end_game(player_win):
+    if player_win:
+        $Label.text = "WYGRANA!"
+    $Label.visible = true
+    get_tree().paused = true
