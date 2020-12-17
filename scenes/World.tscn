@@ -28,3 +28,16 @@ __meta__ = {
 [node name="tymczas" type="Node" parent="."]
 pause_mode = 2
 script = ExtResource( 2 )
+
+[node name="Button" type="Button" parent="."]
+pause_mode = 2
+visible = false
+margin_left = -28.0
+margin_top = 29.0
+margin_right = 29.0
+margin_bottom = 49.0
+text = "Restart"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
